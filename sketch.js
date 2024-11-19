@@ -1,9 +1,15 @@
-const H = 720; // Canvas height (larger for a more dramatic look)
+//------------------------------------------------------//
+//Vector Based Generative Art							              //
+//Inspired by Tyler Hobbs                               //
+//Created with a GNU free to use license                //
+
+// Canvas Dimensions
+const H = 720; // Canvas height
 const W = 720; // Canvas width
-const NI = 150; // Increased vector field resolution for smoother flow
+const NI = 150; // Vector field resolution
 const NJ = 150;
-const nstep = 75; // Increased number of steps for longer, flowing lines
-const res = 1500; // Higher resolution for finer movements
+const nstep = 715; // Number of steps for flowing lines
+const res = 1500; // Resolution for finer movements
 
 // Enhanced neon colors
 const neon = [
@@ -14,9 +20,9 @@ const neon = [
   [0, 255, 128], // Spring Green
 ];
 const neonwt = [0.2, 0.2, 0.2, 0.2, 0.2];
-const sw = [2, 3, 4]; // Slightly adjusted stroke weights for balance
+const sw = [3, 4, 5]; // Slightly thicker stroke weights
 const swwt = [0.4, 0.4, 0.2];
-const nl = [1200, 2000, 3000]; // Increased thread count for denser visuals
+const nl = [1200, 2000, 3000]; // Number of lines
 const nlwt = [0.3, 0.5, 0.2];
 let iters = [0, 0, 0];
 
