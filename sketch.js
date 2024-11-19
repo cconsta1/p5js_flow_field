@@ -1,9 +1,9 @@
-const H = 480; // Canvas height
-const W = 480; // Canvas width
-const NI = 100; // Vector field resolution
-const NJ = 100;
-const nstep = 50; // Number of steps per line
-const res = 1000; // Resolution
+const H = 720; // Canvas height (larger for a more dramatic look)
+const W = 720; // Canvas width
+const NI = 150; // Increased vector field resolution for smoother flow
+const NJ = 150;
+const nstep = 75; // Increased number of steps for longer, flowing lines
+const res = 1500; // Higher resolution for finer movements
 
 // Enhanced neon colors
 const neon = [
@@ -14,15 +14,14 @@ const neon = [
   [0, 255, 128], // Spring Green
 ];
 const neonwt = [0.2, 0.2, 0.2, 0.2, 0.2];
-const sw = [2, 4, 6]; // Thicker stroke weights
-const swwt = [0.3, 0.4, 0.3];
-const nl = [800, 1600, 2400];
-const nlwt = [0.2, 0.6, 0.2];
+const sw = [2, 3, 4]; // Slightly adjusted stroke weights for balance
+const swwt = [0.4, 0.4, 0.2];
+const nl = [1200, 2000, 3000]; // Increased thread count for denser visuals
+const nlwt = [0.3, 0.5, 0.2];
 let iters = [0, 0, 0];
 
 function setup() {
   createCanvas(H, W);
-
   let rnum = fxrand();
 
   // Assign random thread color
@@ -60,7 +59,13 @@ function setup() {
   }
   nlines = nl[iters[2]];
 
-  background(10, 10, 20); // Darker background for better contrast
+  // Enhanced dark background with slight gradient
+  for (let y = 0; y < height; y++) {
+    let gradient = map(y, 0, height, 10, 40);
+    stroke(gradient, gradient, 60);
+    line(0, y, width, y);
+  }
+
   noLoop();
 }
 
@@ -68,7 +73,7 @@ function draw() {
   const vecs = Array.from({ length: NI }, () => Array(NJ).fill(0));
   for (let ii = 0; ii < NI; ii++) {
     for (let jj = 0; jj < NJ; jj++) {
-      let angle = noise(ii / 10, jj / 10) * TWO_PI * 2;
+      let angle = noise(ii / 20, jj / 20) * TWO_PI * 2;
       vecs[ii][jj] = [cos(angle), sin(angle)];
     }
   }
@@ -87,7 +92,7 @@ function draw() {
 
       flowLine.push({ x: xx[0], y: xx[1] });
 
-      // Dynamic stroke
+      // Dynamic stroke with gradient effect
       stroke(
         lerpColor(
           color(neon[iters[0]]),

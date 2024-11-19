@@ -10,11 +10,9 @@ This is a generative art project created using [p5.js](https://p5js.org/). It us
 - `style.css`: A simple stylesheet (if used).
 
 ## How to Run
-1. Open `index.html` in any modern browser.
-2. Make sure all files are in the same directory for the project to run correctly.
-
-## Demo
-You can host this project using GitHub Pages or any local server to see it live.
+1. Open `index.html` in a modern browser.
+2. Ensure all files are in the same directory.
 
 ## License
-This project is licensed under the [GNU Lesser General Public License v2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt) (LGPL-2.1). You are free to use, modify, and distribute this software under the terms of this license.
+This project is licensed under the [GNU Lesser General Public License v2.1](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt) (LGPL-2.1).
+
