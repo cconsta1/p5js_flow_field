@@ -3,7 +3,6 @@
 //Inspired by Tyler Hobbs                               //
 //Created with a GNU free to use license                //
 
-// Canvas Dimensions
 const H = 720; // Canvas height
 const W = 720; // Canvas width
 const NI = 150; // Vector field resolution
@@ -11,7 +10,6 @@ const NJ = 150;
 const nstep = 715; // Number of steps for flowing lines
 const res = 1500; // Resolution for finer movements
 
-// Enhanced neon colors
 const neon = [
   [255, 64, 64], // Bright Red
   [255, 165, 0], // Orange
@@ -76,43 +74,10 @@ function setup() {
 }
 
 function draw() {
-  const vecs = Array.from({ length: NI }, () => Array(NJ).fill(0));
-  for (let ii = 0; ii < NI; ii++) {
-    for (let jj = 0; jj < NJ; jj++) {
-      let angle = noise(ii / 20, jj / 20) * TWO_PI * 2;
-      vecs[ii][jj] = [cos(angle), sin(angle)];
-    }
-  }
+  const vectorField = new VectorField(NI, NJ, res);
 
   for (let iline = 0; iline < nlines; iline++) {
-    let flowLine = [];
-    let pt = [Math.floor(fxrand() * NI), Math.floor(fxrand() * NJ)];
-    let xx = [(pt[0] / NI) * H, (pt[1] / NJ) * W];
-
-    for (let istep = 0; istep < nstep; istep++) {
-      let xstep = (vecs[pt[0]][pt[1]][0] * H) / res;
-      let ystep = (vecs[pt[0]][pt[1]][1] * W) / res;
-      xx = [xx[0] + xstep, xx[1] + ystep];
-      pt = [Math.floor((xx[0] / H) * NI), Math.floor((xx[1] / W) * NJ)];
-      if (pt[0] < 0 || pt[0] >= NI || pt[1] < 0 || pt[1] >= NJ) break;
-
-      flowLine.push({ x: xx[0], y: xx[1] });
-
-      // Dynamic stroke with gradient effect
-      stroke(
-        lerpColor(
-          color(neon[iters[0]]),
-          color(neon[(iters[0] + 1) % neon.length]),
-          istep / nstep
-        )
-      );
-    }
-
-    beginShape();
-    noFill();
-    for (let j = 0; j < flowLine.length; j++) {
-      curveVertex(flowLine[j].x, flowLine[j].y);
-    }
-    endShape();
+    const flowLine = new FlowLine(vectorField, nstep, H, W, res, neon, iters);
+    flowLine.drawLine();
   }
 }
